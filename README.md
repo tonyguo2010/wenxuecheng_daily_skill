@@ -58,8 +58,8 @@ py scripts\fetch_rankings.py --format md
 （假设 OpenClaw skills 目录为 `~/.openclaw/skills`）
 
 ```bash
-scp -r wenxuecity-news-rankings cici@192.168.1.169:~/.openclaw/skills/
-ssh cici@192.168.1.169 'cd ~/.openclaw/skills/wenxuecity-news-rankings && python3 scripts/fetch_rankings.py --format md'
+scp -r wenxuecity-news-rankings <user>@<host>:~/.openclaw/skills/
+ssh <user>@<host> 'cd ~/.openclaw/skills/wenxuecity-news-rankings && python3 scripts/fetch_rankings.py --format md'
 ```
 
 ---
@@ -118,6 +118,6 @@ py scripts\fetch_rankings.py --format md
 (Assuming your OpenClaw skills directory is `~/.openclaw/skills`)
 
 ```bash
-scp -r wenxuecity-news-rankings cici@192.168.1.169:~/.openclaw/skills/
-ssh cici@192.168.1.169 'cd ~/.openclaw/skills/wenxuecity-news-rankings && python3 scripts/fetch_rankings.py --format md'
+scp -r wenxuecity-news-rankings <user>@<host>:~/.openclaw/skills/
+ssh <user>@<host> 'cd ~/.openclaw/skills/wenxuecity-news-rankings && python3 scripts/fetch_rankings.py --format md'
 ```
