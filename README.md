@@ -1,34 +1,42 @@
-# wenxuecity-news-rankings（OpenClaw/Codex 技能 / Skill）
+# Wenxuecity News Rankings Skill (OpenClaw/Codex)
 
-这个仓库包含一个技能，用于抓取并整理文学城新闻频道的 24 小时排行：
+[中文](#中文) | [English](#english)
+
+---
+
+## 中文
+
+一个用于抓取并整理文学城新闻频道 24 小时排行的 OpenClaw/Codex 技能，数据来源：
 
 - https://www.wenxuecity.com/news/
 
-This repo contains a skill that fetches and formats Wenxuecity News 24-hour rankings from:
+提取两块榜单：
 
-- https://www.wenxuecity.com/news/
+- `24小时热点排行`
+- `24小时讨论排行`
 
-它会提取：
+### 功能
 
-- `24小时热点排行` (24-hour hot ranking)
-- `24小时讨论排行` (24-hour discussion ranking)
+- 抓取并输出两块 24 小时排行（Markdown / JSON）
+- 默认 Top 15（如页面不足 15 条则输出实际条目）
 
-It extracts:
+### 文件位置
 
-- `24小时热点排行` (24-hour hot ranking)
-- `24小时讨论排行` (24-hour discussion ranking)
+- Skill 目录：`wenxuecity-news-rankings/`
+- 脚本入口：`wenxuecity-news-rankings/scripts/fetch_rankings.py`
 
-## Skill 位置 / Location
+### 前置准备
 
-- Skill folder: `wenxuecity-news-rankings/`
-- Entry script: `wenxuecity-news-rankings/scripts/fetch_rankings.py`
-
-## 依赖 / Requirements
-
-- Python 3.10+（仅标准库，无额外依赖 / standard library only）
+- Python 3.10+（仅标准库，无额外依赖）
 - 可访问 `www.wenxuecity.com` 的网络
 
-## 用法 / Usage
+### 本地运行
+
+```bash
+cd wenxuecity-news-rankings
+# Linux/macOS
+python3 scripts/fetch_rankings.py --format md
+```
 
 Windows (PowerShell):
 
@@ -37,36 +45,77 @@ cd wenxuecity-news-rankings
 py scripts\fetch_rankings.py --format md
 ```
 
-Linux/macOS (bash/zsh):
+### 参数（常用）
+
+- `--top N`：保留 Top N（默认 15；`--top 0` 输出页面实际全部）
+- `--format md|json`：输出格式
+- `--pretty`：JSON 美化输出
+- `--output FILE`：写入文件
+- `--include-images`：JSON 带 `image_url`，Markdown 嵌入图片
+
+### OpenClaw 部署示例
+
+（假设 OpenClaw skills 目录为 `~/.openclaw/skills`）
+
+```bash
+scp -r wenxuecity-news-rankings cici@192.168.1.169:~/.openclaw/skills/
+ssh cici@192.168.1.169 'cd ~/.openclaw/skills/wenxuecity-news-rankings && python3 scripts/fetch_rankings.py --format md'
+```
+
+---
+
+## English
+
+An OpenClaw/Codex skill that fetches and formats Wenxuecity News 24-hour rankings from:
+
+- https://www.wenxuecity.com/news/
+
+It extracts:
+
+- `24小时热点排行` (24-hour hot ranking)
+- `24小时讨论排行` (24-hour discussion ranking)
+
+### Features
+
+- Fetch and output both 24-hour rankings (Markdown / JSON)
+- Default Top 15 (if the page exposes fewer items, output what is available)
+
+### Layout
+
+- Skill folder: `wenxuecity-news-rankings/`
+- Entry script: `wenxuecity-news-rankings/scripts/fetch_rankings.py`
+
+### Prerequisites
+
+- Python 3.10+ (standard library only; no extra dependencies)
+- Network access to `www.wenxuecity.com`
+
+### Local Run
 
 ```bash
 cd wenxuecity-news-rankings
+# Linux/macOS
 python3 scripts/fetch_rankings.py --format md
 ```
 
-输出 JSON / Output JSON:
+Windows (PowerShell):
 
-```bash
-python3 scripts/fetch_rankings.py --format json --pretty --output rankings.json
+```powershell
+cd wenxuecity-news-rankings
+py scripts\fetch_rankings.py --format md
 ```
 
-## 参数 / Options
+### Options (common)
 
-- `--top N`: keep only top N items (default: 15; use `--top 0` for all available)
+- `--top N`: keep only Top N (default: 15; use `--top 0` for all available)
 - `--format md|json`: output format
-- `--include-images`: include `image_url` in JSON and embed images in Markdown
+- `--pretty`: pretty-print JSON
 - `--output FILE`: write output to a file
+- `--include-images`: include `image_url` in JSON and embed images in Markdown
 
-## 备注 / Notes
+### OpenClaw deploy example
 
-- 页面可能本身就少于你请求的条目数（例如“热点排行”有时只有 5 条）。脚本会输出“实际存在的”条目。
-- The source page may expose fewer items than requested (e.g., hot ranking sometimes shows only 5 entries). The script outputs what is available.
-
-## 部署到 OpenClaw（示例）/ Deploy to OpenClaw (example)
-
-如果你的 OpenClaw skills 目录是 `~/.openclaw/skills`：
-
-If your OpenClaw skills directory is `~/.openclaw/skills`:
+(Assuming your OpenClaw skills directory is `~/.openclaw/skills`)
 
 ```bash
 scp -r wenxuecity-news-rankings cici@192.168.1.169:~/.openclaw/skills/
